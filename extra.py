@@ -227,7 +227,9 @@ def main():
     }
     json.dump({'meta': meta, 'sections': sections, 'apparatus': entries,
                'kepan': kepan_tree},
-              open('corpus.json', 'w'), ensure_ascii=False)
+              open('corpus.json', 'w'), ensure_ascii=False, indent=1)
+    # indent=1：一行一鍵，便於 git diff 逐項比對，亦可在各種檢視器開啟。
+    # 讀取端為 json.load，縮排不影響解析；index.html 內嵌語料另由 build.py 壓縮輸出。
 
     print('校勘條目:', len(entries), '／錨點對映:', len(appmap))
     print('缺字:', len(gaiji), '未有 Unicode:', unresolved)
