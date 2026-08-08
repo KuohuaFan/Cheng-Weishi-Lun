@@ -44,13 +44,31 @@ GitHub Pages 無法自瀏覽器直接呼叫 Anthropic API（CORS 限制）。
 ## 建置管線
 
 ```
-extract.py  CBETA XML → corpus.json（擷取、校勘錨點、頌組分節、覆蓋率驗證）
-meta.py     書目・版本・授權・變更紀錄
-gloss.py    頌旨語譯・要義提點・唯識名相・對照表
-build.py    組裝 index.html 並執行輸出前驗證
+T31n1585.xml ──extract.py──▶ corpus.json ──build.py──▶ index.html
+                                              ▲
+                              meta.py ────────┤
+                              gloss.py ───────┘
 ```
 
-重跑：`python3 extract.py && python3 build.py`（需 lxml 與 T31n1585.xml）。
+| 檔案 | 角色 |
+|---|---|
+| `extract.py` | CBETA XML → `corpus.json`：缺字表、`app` 取 `lem`、校勘錨點標記、頌組分節、覆蓋率 assert |
+| `corpus.json` | **中間檔**，擷取層成品：22 節論文本體 + 394 則校勘 + 六級科判。可由 extract.py 重新產生 |
+| `meta.py` | 書目・版本・授權・變更紀錄 |
+| `gloss.py` | 撰述層：頌旨語譯・要義提點・唯識名相・對照表 |
+| `build.py` | 讀入上開三者，加掛 `label / yi / yao / ming / tables` 等欄位，組裝 `index.html` 並執行輸出前驗證 |
+
+`index.html` 已內嵌完整語料，**上線只需 `index.html` 一檔**；其餘檔案供覆核與重製。
+
+重跑：
+
+```bash
+curl -O https://raw.githubusercontent.com/cbeta-org/xml-p5/master/T/T31/T31n1585.xml
+pip install lxml
+python3 extract.py && python3 build.py
+```
+
+注意分支是 `master` 而非 `main`。`T31n1585.xml` 不隨本倉庫散布，請自 CBETA 取得。
 
 ## 版本
 
