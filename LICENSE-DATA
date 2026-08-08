@@ -1,0 +1,11 @@
+資料層授權
+==================================================
+scripture layer  ── CBETA 非商業使用條款（T31n1585）
+commentary layer ── CC BY 4.0（本讀本原創撰述）
+code / design    ── CC BY 4.0
+
+歸屬鏈：
+  大正新脩大藏經 T31 no.1585
+    → CBETA XML TEI-P5（cbeta-org/xml-p5, master）
+      → extract2.py 程式化擷取（零人工轉錄）
+        → 本讀本 index.html
